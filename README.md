@@ -56,10 +56,12 @@
     HAVING 
 	```
 
-* Q7. Trova i nomi dei soci che hanno prenotato tutte le barche che si 
-      chiamano iniziando con 'typhoon'.
+* Q7. Trova i nomi dei soci che hanno prenotato tutte le barche che si chiamano iniziando con 'typhoon'.
 * Q8. Trova gli id dei soci che hanno un punteggio più alto del socio di nome Bob.
 * Q11. Trova il nome e l'età del socio più vecchio.
+* Q12. Trova i nomi dei soci che hanno prenotato tutte le barche prenotate da quelli con punteggio minore.
+* Q13. Trovare per ogni punteggio l'età media dei soci con quel livello di punteggio.
+* Q14. Per ogni barca prenotata da almeno 2 distinti soci, trovare l'id della barca e l'età media del socio che l'ha prenotata.
     
 ### Comandi Bash
 
@@ -73,8 +75,10 @@
     8  git add README.md 
     9  git commit -m "add readme1.0" 
     10 git push
+    12 git add README.md
+    13 git commi -m "add readme1.1"
+    14 git push
 
 ### Commandi SQL
     
     1 SET search_path TO bucintoro;
-    2 
