@@ -19,10 +19,43 @@
     
 * Q3. Trova i nomi dei soci che non hanno prenotato una barca e il cui nome 
       contiene la stringa 'storm'. Ordina il risultato in senso crescente.
+	```sh
+	SELECT s.snome
+	FROM soci AS s
+	WHERE s.snome LIKE '%storm%' AND s.socio_id NOT IN
+    	(SELECT sid 
+    	FROM prenotazioni)
+    ORDER BY s.snome;
+	```
 * Q4. Trova gli id dei soci di età superiore a 20 che non hanno prenotato 
       barche il cui nome contenga la stringa 'thunder'.
+    ```sh
+	SELECT socio_id
+	FROM soci AS s
+	WHERE eta > 20 AND socio_id NOT IN
+        (SELECT sid 
+    	FROM prenotazioni, barche
+    	WHERE sid = barca_id AND bnome LIKE '%thunder%')
+    ORDER BY s.snome;
+	```
 * Q5. Trova i nomi dei soci che hanno prenotato almeno due barche.
+     ```sh
+	SELECT s.snome, s.socio_id, COUNT(DISTINCT p.bid)
+    FROM soci AS s, prenotazioni as p
+    WHERE s.socio_id = p.sid 
+    GROUP BY s.socio_id
+    HAVING COUNT(*) >= 2;
+	```    
+
 * Q6. Trova i nomi dei soci che hanno prenotato tutte le barche.
+    ```sh
+    SELECT COUNT(DISTINCT p.bid)
+    FROM soci AS s, prenotazioni as p
+    WHERE s.socio_id = p.sid
+    GROUP BY s.socio_id
+    HAVING 
+	```
+
 * Q7. Trova i nomi dei soci che hanno prenotato tutte le barche che si 
       chiamano iniziando con 'typhoon'.
 * Q8. Trova gli id dei soci che hanno un punteggio più alto del socio di nome Bob.
