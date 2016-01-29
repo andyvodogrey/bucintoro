@@ -27,6 +27,7 @@ INSERT INTO barche VALUES
 
 INSERT INTO prenotazioni VALUES
 (22, 101, '10/10/15'),
+(22, 101, '10/10/14'),
 (22, 102, '10/10/15'),
 (22, 103, '10/8/15'),
 (22, 104, '10/7/15'),
