@@ -49,19 +49,81 @@
 
 * Q6. Trova i nomi dei soci che hanno prenotato tutte le barche.
     ```sh
-    SELECT COUNT(DISTINCT p.bid)
-    FROM soci AS s, prenotazioni as p
-    WHERE s.socio_id = p.sid
-    GROUP BY s.socio_id
-    HAVING 
-	```
-
-* Q7. Trova i nomi dei soci che hanno prenotato tutte le barche che si chiamano iniziando con 'typhoon'.
+    SELECT s.snome
+    FROM soci AS s
+    WHERE NOT EXISTS (
+        (SELECT b.barca_id
+        FROM barche AS b) 
+        
+        EXCEPT ALL
+        
+        (SELECT DISTINCT p.bid
+        FROM prenotazioni AS p
+        WHERE p.sid = s.socio_id) );
+    ```
+ 
+* Q7. Trova i nomi dei soci che hanno prenotato tutte le barche che si chiamano iniziando con ','.
+     ```sh
+    SELECT s.socio_id, s.snome
+    FROM soci AS s
+    WHERE NOT EXISTS (
+        (SELECT b.barca_id
+        FROM barche AS b
+        WHERE b.bnome LIKE 'Inter%')
+        
+        EXCEPT ALL
+        
+        (SELECT DISTINCT p.bid
+        FROM prenotazioni AS p, barche AS b1
+        WHERE p.sid = s.socio_id
+        AND b1.bnome LIKE 'Inter%' AND p.bid = b1.barca_id ) );
+     ```
 * Q8. Trova gli id dei soci che hanno un punteggio più alto del socio di nome Bob.
+    ```sh
+    SELECT s.socio_id, s.snome, s.punteggio
+    FROM soci AS s
+    WHERE s.punteggio > 
+    
+        (SELECT s1.punteggio
+        FROM soci AS s1
+        WHERE s1.socio_id = 95);
+    ```
+
 * Q11. Trova il nome e l'età del socio più vecchio.
+    ```sh
+   SELECT s1.snome, s1.eta
+   FROM soci AS s1
+   WHERE s1.eta = 
+        (SELECT MAX(s.eta)
+        FROM soci AS s)
+    
+    ```
+
 * Q12. Trova i nomi dei soci che hanno prenotato tutte le barche prenotate da quelli con punteggio minore.
+    ```sh
+    
+    ```
+    
 * Q13. Trovare per ogni punteggio l'età media dei soci con quel livello di punteggio.
+
+    ```sh
+    SELECT s.punteggio, AVG(s.eta)
+    FROM soci AS s
+    GROUP BY s.punteggio;
+    ```
+
 * Q14. Per ogni barca prenotata da almeno 2 distinti soci, trovare l'id della barca e l'età media del socio che l'ha prenotata.
+    
+    ```sh
+    SELECT p.bid, COUNT(Distinct p.sid), AVG(s.eta)
+    FROM 
+    (SELECT p1.sid, p1.bid    -- per non avere dublicati delle prenotazioni
+    FROM prenotazioni AS p1 
+    GROUP by p1.sid, p1.bid) AS p, 
+    soci as s
+    WHERE p.sid = s.socio_id
+    GROUP BY p.bid
+    ```
     
 ### Comandi Bash
 
@@ -76,8 +138,17 @@
     9  git commit -m "add readme1.0" 
     10 git push
     12 git add README.md
-    13 git commi -m "add readme1.1"
+    13 git commit -m "add readme1.1"
     14 git push
+    15 git add insert.sql
+    16 git commit -m "add new insert"
+    17 git push 
+    18 git add README.md
+    19 git commit -m "add readme1.2"
+    20 git push
+    21 git add README.md
+    22 git commit -m "add readme1.2"
+    23 git push
 
 ### Commandi SQL
     
