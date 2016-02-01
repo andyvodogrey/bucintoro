@@ -14,7 +14,7 @@
 	```sh
 	SELECT DISTINCT s.socio_id AS INDENTIFICATORI,  s.punteggio  
 	FROM soci AS s, prenotazioni AS p, barche as b
-	WHERE s.punteggio > 8 or (p.bid = 103 and s.socio_id = p.sid and b.barca_id = p.bid);
+	WHERE s.punteggio > 8 OR (p.bid = 103 AND s.socio_id = p.sid AND b.barca_id = p.bid);
 	```
     
 * Q3. Trova i nomi dei soci che non hanno prenotato una barca e il cui nome 
@@ -41,7 +41,7 @@
 * Q5. Trova i nomi dei soci che hanno prenotato almeno due barche.
      ```sh
 	SELECT s.snome, s.socio_id, COUNT(DISTINCT p.bid)
-    FROM soci AS s, prenotazioni as p
+    FROM soci AS s, prenotazioni AS p
     WHERE s.socio_id = p.sid 
     GROUP BY s.socio_id
     HAVING COUNT(*) >= 2;
@@ -117,10 +117,9 @@
     ```sh
     SELECT p.bid, COUNT(Distinct p.sid), AVG(s.eta)
     FROM 
-    (SELECT p1.sid, p1.bid    -- per non avere dublicati delle prenotazioni
-    FROM prenotazioni AS p1 
-    GROUP by p1.sid, p1.bid) AS p, 
-    soci as s
+        (SELECT p1.sid, p1.bid    -- per non avere dublicati delle prenotazioni
+        FROM prenotazioni AS p1 
+        GROUP by p1.sid, p1.bid) AS p, soci AS s
     WHERE p.sid = s.socio_id
     GROUP BY p.bid
     ```
@@ -147,7 +146,7 @@
     19 git commit -m "add readme1.2"
     20 git push
     21 git add README.md
-    22 git commit -m "add readme1.2"
+    22 git commit -m "add readme 1.3"
     23 git push
 
 ### Commandi SQL
